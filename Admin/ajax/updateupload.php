@@ -8,10 +8,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $query = "UPDATE upload SET status_verify = ?, status_progress = ? WHERE id_upload = ?";
     $stmt = $pdo->prepare($query);
     if ($status == 1) {
-        $stmt->execute([1, 1, $id]);
+        $stmt->execute([1, 3, $id]);
     }
     else if ($status == 2) {
-        $stmt->execute([2, 3, $id]);
+        $stmt->execute([2, 4, $id]);
     }
     
 }

@@ -34,14 +34,17 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         if ($upload['status_progress'] == 0) {
             echo '<td><span style="color: Black; font-weight: bold"><i class="fas fa-hourglass-half"></i> Waiting Verification</span></td>';
         }
-        else if ($upload['status_progress'] == 1) {
+        else if ($upload['status_progress'] == 3) {
             echo '<td><span style="color: Blue; font-weight: bold"><i class="fas fa-hourglass-half"></i> In Progress</span></td>';
         }
-        else if ($upload['status_progress'] == 2) {
+        else if ($upload['status_progress'] == 1) {
             echo '<td><span style="color: Green; font-weight: bold"><i class="fas fa-check-circle"></i> Completed</span></td>';
         }
-        else if ($upload['status_progress'] == 3) {
+        else if ($upload['status_progress'] == 4) {
             echo '<td><span style="color: Red; font-weight: bold"><i class="fas fa-times-circle"></i> Rejected</span></td>';
+        }
+        else if ($upload['status_progress'] == 2) {
+            echo '<td><span style="color: Red; font-weight: bold"><i class="fas fa-times-circle"></i> Failed</span></td>';
         }
         $no=$no+1;
     }
