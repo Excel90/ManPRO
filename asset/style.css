@@ -1,0 +1,82 @@
+a {
+  text-decoration: none;
+  color: white;
+}
+
+.container-fluid {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  left: 0;
+}
+.row {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  left: 0;
+}
+.nav {
+  font-size: 20px;
+}
+.nav li a {
+  text-decoration: none;
+  color: white;
+}
+.nav li a:hover {
+  animation: change_color 0.5s linear forwards;
+}
+
+.join_logo:hover path {
+  animation: icon_animation 1s alternate infinite;
+}
+.login_logo:hover path {
+  animation: icon_animation 1s alternate infinite;
+}
+.aboutus:hover {
+  animation: text_change_color 1s alternate infinite;
+}
+
+@keyframes text_change_color {
+  0% {
+    color: white;
+  }
+  100% {
+    color: orange;
+  }
+}
+
+@keyframes icon_animation {
+  0% {
+    fill: white;
+  }
+  100% {
+    fill: orange;
+  }
+}
+
+@keyframes change_color {
+  0% {
+  }
+  100% {
+    color: #00c2cb;
+  }
+}
+.hide {
+  display: none;
+}
+
+.done{
+  background: #48B08B;
+}
+.absent{
+  background: #FBD15B;
+}
+.tbd{
+  background:grey;
+}
+.profile img {
+  border-radius:50%; 
+  width:100%;
+}
