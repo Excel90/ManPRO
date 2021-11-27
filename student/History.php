@@ -112,20 +112,47 @@ $stmt2->execute([$_SESSION['username']]);
           </tr>
         </thead>
         <tbody>
-          <?php while ($fetch = $stmt2->fetch()) { ?>
+          <?php while ($fetch = $stmt2->fetch()) { 
+            $classid = $fetch['id_class'];?>
             <tr>
               <td><?php echo $fetch['class_name'] ?></td>
               <td><?php echo $fetch['course_name'] ?></td>
               <td><?php echo $fetch['first_name'] . " " . $fetch['last_name'] ?></td>
-              <td><?php echo $fetch['course_name'] ?></td>
-              <td><?php if($fetch['status_progress'] == 1 ){
-                echo '<p style="color:#48B08B;">Pass</p>';
-              } else if($fetch['status_progress'] == 2 ){
-                echo '<p style="color:#DA5077;">Failed</p>';
-              } 
-              
-              
-              ?></td>
+              <td><?php
+                 
+                  $sql = "SELECT * 
+                  FROM `student__score`
+                  JOIN score ON student__score.id_score = score.id_score
+                  WHERE id_class = ?";
+                  $stmt3 = $pdo->prepare($sql);
+                  $stmt3->execute([$classid]);
+                  $overall = 0;
+
+                  while($nilai = $stmt3->fetch()){
+                    $overall = $overall + ($nilai['score']*($nilai['percentage']/100));
+                  } 
+                  if($overall >= 86 && $overall < 100){
+                    echo "A";
+                  }
+                  else if($overall >= 70 && $overall < 86){
+                    echo "B";
+                  }
+                  else if($overall >= 50 && $overall < 70){
+                    echo "C";
+                  }
+                  else if($overall >= 0 && $overall < 50){
+                    echo "D";
+                  }
+
+                  ?>
+              </td>
+              <td>
+              <?php if ($fetch['status_progress'] == 1) {
+                    echo '<p style="color:#48B08B;">Pass</p>';
+                  } else if ($fetch['status_progress'] == 2) {
+                    echo '<p style="color:#DA5077;">Failed</p>';
+                  }
+                  ?></td>
               <td class="text-center">
                 <form action="../student/attedance.php" method="POST">
                   <button type="submit" name="id_class" value="<?php echo $fetch['id_class'] ?>" id="reg_button" class="btn btn-primary" style="background: #39229a">

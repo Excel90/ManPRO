@@ -67,28 +67,26 @@ if (isset($_SESSION['username'])) {
       </div>
       <div class="col-sm-3 offset-4">
         <ul class="nav">
-          <li style="margin-left: 2vw;"><a href="./student.php">Home</a></li>
+          <li style="margin-left: 2vw"><a href="./student.php">Home</a></li>
           <li style="margin-left: 2vw;"><a href="./history.php">Class</a></li>
           <li><a href="../student/schedule.php" class="mt-2 fas fa-bookmark" style="font-size: 2vw; color: #fbd15b;  margin-left: 3vw;"></a></li>
-
           <li> <a href="../Manage/transaction_payment.php" class="mt-2 fas fa-bell" style="font-size: 2vw; color: #fbd15b; margin-left: 3vw;"></a></li>
         </ul>
       </div>
       <div class="col-sm-2" style="background: #fbd15b; border-radius: 10px">
         <div class="m-2 text-center">
-          <a class="profile" href="../student/profile.php" style="color:black;"><img src="<?php echo $fetch['picture'] ?>" style="width:20%; border-radius:50%;" alt=""></a>
+          <a href="../student/profile.php" style="color:black;"><img src="<?php echo $fetch['picture'] ?>" style="width:20%; border-radius:50%;" alt=""></a>
           <span class="m-2" style="font-size: 1.5vw"><?php echo $fetch['first_name'] ?> </span>
           <a href="../Manage/Logout.php"><i class="ms-1 fas fa-sign-out-alt" style="font-size:1.5vw; color:black;"></i></a>
         </div>
       </div>
       <div class="row text-center">
-        <div class="col" style="margin-top: 20vh; margin-bottom: 20vh; color: white">
+        <div class="col" style="margin-top: 20vw; margin-bottom: 20vw; color: white">
           <h2>WELCOME, <?php echo $fetch['first_name']; ?></h2>
-          <h4>What do you want to do today ?</h4>
+          <h1>What do you want to do ?</h1>
         </div>
       </div>
     </div>
-
     <div class="row text-center p-5">
       <a action="../manage/transaction.php" class="col p-5 btnclass m-4">
         <img src="../asset/basic.jpg" alt="" style="width: 90%; margin: auto; border-radius: 5px" />
@@ -154,7 +152,7 @@ if (isset($_SESSION['username'])) {
       </a>
     </div>
     <div class="row text-center" style="background: #5a47ab; width: 100%; height: 30vh; left: 0; color: white">
-      
+
     </div>
     <div class="row p-5">
       <div class="col-sm-4 text-end ms-4">

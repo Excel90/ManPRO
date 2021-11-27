@@ -76,24 +76,23 @@ if (isset($_SESSION['username'])) {
             </div>
             <div class="col-sm-3 offset-4">
                 <ul class="nav">
-                    <li style="margin-left: 2vw;"><a href="./student.php">Home</a></li>
+                    <li style="margin-left: 2vw"><a href="./student.php">Home</a></li>
                     <li style="margin-left: 2vw;"><a href="./history.php">Class</a></li>
                     <li><a href="../student/schedule.php" class="mt-2 fas fa-bookmark" style="font-size: 2vw; color: #fbd15b;  margin-left: 3vw;"></a></li>
-
                     <li> <a href="../Manage/transaction_payment.php" class="mt-2 fas fa-bell" style="font-size: 2vw; color: #fbd15b; margin-left: 3vw;"></a></li>
                 </ul>
             </div>
             <div class="col-sm-2" style="background: #fbd15b; border-radius: 10px">
-                <div class="m-2">
-                    <a class="profile" href="../student/profile.php"><img src="<?php echo $fetch['picture'] ?>" style="width:20%; border-radius:50%;" alt=""></a>
-                    <span class="m-2" style="font-size: 1.5vw font-weight:800;"><?php echo $fetch['first_name'] ?> </span>
+                <div class="m-2 text-center">
+                    <a href="../student/profile.php" style="color:black;"><img src="<?php echo $fetch['picture'] ?>" style="width:20%; border-radius:50%;" alt=""></a>
+                    <span class="m-2" style="font-size: 1.5vw"><?php echo $fetch['first_name'] ?> </span>
                     <a href="../Manage/Logout.php"><i class="ms-1 fas fa-sign-out-alt" style="font-size:1.5vw; color:black;"></i></a>
                 </div>
             </div>
             <div class="row text-center">
-                <div class="col" style="margin-top: 20vh; margin-bottom: 20vh; color: white">
+                <div class="col" style="margin-top: 20vw; margin-bottom: 20vw; color: white">
                     <h2>WELCOME, <?php echo $fetch['first_name']; ?></h2>
-                    <h4>Choose your class</h4>
+                    <h1>This your Schedule</h1>
                 </div>
             </div>
         </div>
@@ -122,6 +121,7 @@ if (isset($_SESSION['username'])) {
                             <th scope="col">Teacher</th>
                             <th scope="col">Link</th>
                             <th scope="col">Duration</th>
+                            <th scope="col">Day</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -145,6 +145,26 @@ if (isset($_SESSION['username'])) {
                                 <td><?php echo $fetch['first_name'] . " " . $fetch['last_name'] ?></td>
                                 <td><?php echo $fetch['location'] ?></td>
                                 <td><?php echo $fetch['duration'] ?></td>
+                                <td><?php switch ($fetch['days']) {
+                                        case 1:
+                                            echo ('Senin');
+                                            break;
+                                        case 2:
+                                            echo ('Selasa');
+                                            break;
+                                        case 3:
+                                            echo ('Rabu');
+                                            break;
+                                        case 4:
+                                            echo ('Kamis');
+                                            break;
+                                        case 5:
+                                            echo ('Jumat');
+                                            break;
+                                        case 6:
+                                            echo ('Sabtu');
+                                            break;
+                                    } ?></td>
                             </tr>
                         <?php $i = $i + 1;
                             $a = $a + 1;
@@ -153,8 +173,33 @@ if (isset($_SESSION['username'])) {
                 </table>
             </div>
         </div>
-        <div class="row text-center" style="background: #5a47ab; width: 100%; height: 100vh; left: 0; color: white">
-            
+        <div class="row text-center" style="background: #5a47ab; width: 100%; left: 0; color: white">
+            <center>
+                <div class="col-10" style="margin-top: 20vw; margin-bottom: 20vw; letter-spacing: 0.5em">
+                    <h2>Your Course will end in 9 week</h2>
+                    <h4 style="
+                border-top: yellow solid 5px;
+                padding-top: 5vh;
+                margin-top: 5vh;
+              ">
+                        Make Sure Attend All Class
+                    </h4>
+                    <a href="../student/student.php">
+                        <button style="
+                width: 15em;
+                height: 5em;
+                border-style: none;
+                border-radius: 10px;
+                background: white;
+                color: #39229a;
+                font-family: 'Open Sans', sans-serif;
+                margin-top: 5vh;
+              ">
+                            See Other Course
+                        </button>
+                    </a>
+                </div>
+            </center>
         </div>
         <div class="row p-5">
             <div class="col-sm-4 text-end ms-4">

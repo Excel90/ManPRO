@@ -146,7 +146,7 @@ if (isset($_SESSION['username'])) {
           </button>
         </div>
         <div class="row m-3">
-          <a href="" id="reg_button" class="btn btn-primary" style="background: #39229a">
+          <a href="../student/History.php" id="reg_button" class="btn btn-primary" style="background: #39229a">
             <span style="padding-left: 2em; padding-right: 2em;" onclick="">View Class History</span>
           </a>
         </div>
