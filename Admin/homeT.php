@@ -11,7 +11,7 @@
 <html lang="en">
 
 <head>
-
+    <?php include 'include.php'; ?>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -61,6 +61,13 @@
                 <a class="nav-link" href="grading.php">
                     <i class="fas fa-fw fa-chalkboard-teacher"></i>
                     <span>Class</span></a>
+            </li>
+
+            <!-- Nav Item - Grading -->
+            <li class="nav-item">
+                <a class="nav-link" href="Level.php">
+                    <i class="fas fa-fw fa-level-up-alt"></i>
+                    <span>Level</span></a>
             </li>
 
             <!-- Divider -->

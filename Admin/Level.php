@@ -1,33 +1,24 @@
 <?php
     session_start();
     require_once 'connect.php';
-    if (!isset($_SESSION['id']) || $_SESSION['id'] == "" || !isset($_SESSION['status']) || $_SESSION['status'] != "Admin") {
+    if (!isset($_SESSION['id']) || $_SESSION['id'] == "" || !isset($_SESSION['status']) || $_SESSION['status'] != "Teacher") {
         header("Location: logout.php");
         exit();
     }
-
-    //get profile and about
-    $id = 1;
-    $query = "SELECT * FROM company where id = ?";
-    $stmt = $pdo->prepare($query);
-    $stmt->execute([$id]);
-    $profile = [];
-    $profile = $stmt->fetch();
-    $TAA = $profile['terms'];
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
+    <?php include 'include.php'; ?>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Terms and Agreement</title>
+    <title>SB Admin 2 - Level</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -49,7 +40,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="admin.php">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="homeT.php">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -61,51 +52,22 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="admin.php">
+                <a class="nav-link" href="homeT.php">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
+                    <span>Home</span></a>
             </li>
-            <!-- Nav Item - Verify -->
+            <!-- Nav Item - Grading -->
             <li class="nav-item">
-                <a class="nav-link" href="verify.php">
-                    <i class="fas fa-fw fa-address-card"></i>
-                    <span>Verify member</span></a>
+                <a class="nav-link" href="grading.php">
+                    <i class="fas fa-fw fa-chalkboard-teacher"></i>
+                    <span>Class</span></a>
             </li>
-            <!-- Nav Item - Company Profile -->
+
+            <!-- Nav Item - Grading -->
             <li class="nav-item active">
-                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseOffice"
-                    aria-expanded="true" aria-controls="collapseOffice">
-                    <i class="fas fa-fw fa-building"></i>
-                    <span>Back Office</span>
-                </a>
-                <div id="collapseOffice" class="collapse show" aria-labelledby="headingOffice"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="company.php">Company Profile</a>
-                        <a class="collapse-item active" href="TAA.php">Terms and Agreement</a>
-                    </div>
-                </div>
-            </li>
-            <!-- Nav Item - Manage Database -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDatabase"
-                    aria-expanded="true" aria-controls="collapseDatabase">
-                    <i class="fas fa-fw fa-database"></i>
-                    <span>Manage Database</span>
-                </a>
-                <div id="collapseDatabase" class="collapse" aria-labelledby="headingDatabase"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Manage People</h6>
-                        <a class="collapse-item" href="Student.php">Student</a>
-                        <a class="collapse-item" href="Teacher.php">Teacher</a>
-                        <h6 class="collapse-header">Manage Course</h6>
-                        <a class="collapse-item" href="Class.php">Class</a>
-                        <a class="collapse-item" href="Schedule.php">Schedule</a>
-                        <h6 class="collapse-header">Manage Price</h6>
-                        <a class="collapse-item" href="Course.php">Course Price</a>
-                    </div>
-                </div>
+                <a class="nav-link" href="Level.php">
+                    <i class="fas fa-fw fa-level-up-alt"></i>
+                    <span>Level</span></a>
             </li>
 
             <!-- Divider -->
@@ -135,17 +97,23 @@
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
+
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['name'] ?></span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['first_name']?> <?php echo $_SESSION['last_name']?></span>
                                 <img class="img-profile rounded-circle"
                                     src="img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profile
+                                </a>
+                                <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
@@ -162,12 +130,25 @@
                 <div class="container-fluid">
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Terms and Agreement</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Level</h1>
                     </div>
-
-                    <div id="profile" class = "col">
-                        <textarea class="form-control" rows="10" id="taa"><?php echo $TAA?></textarea>
-                        <button class="btn btn-primary" id="btaa">Update</button>
+                    <div class="card-body mr-3">
+                        <div style="overflow-x: auto;">
+                            <table id="table_id" class="table display nowrap mb-3" style="text-align: center;">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Student</th>
+                                        <th>Email</th>
+                                        <th>Level</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="studentlist">
+                    
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
                 <!-- /.container-fluid -->
@@ -236,22 +217,103 @@
 </body>
 <script>
     $(document).ready(function(){
-        $(document).on("click", "#btaa", function(){
+        function reload(){
             $.ajax({
-                url: "ajax/editTAA.php",
+                url: "ajax/getstudentlevel.php",
                 method: "POST",
                 data: {
-                    text: $("#taa").val()
+
                 },
                 success: function (result) {
-                    alert("Success");
-                    window.location.href = "TAA.php";
+                    $("#studentlist").html(result);
                 },
                 error: function () {
                     alert("Server Not Responding");
                 }
             });
-        }); 
-    });
+        }
+        $.ajax({
+            url: "ajax/getstudentlevel.php",
+            method: "POST",
+            data: {
+
+            },
+            success: function (result) {
+                $("#studentlist").html(result);
+            },
+            error: function () {
+                alert("Server Not Responding");
+            }
+        });
+        $(document).on("click", ".LB", function(){
+            var id = $(this).attr("id");
+            var data = $("#" + id).data("val");
+            $.ajax({
+                url: "ajax/updatelevel.php",
+                method: "POST",
+                data: {
+                    id: data,
+                    status:1
+                },
+                success: function (result) {
+                    swal.fire({
+                        title: 'Success',
+                        icon: 'success',
+                        confirmButtonText: 'Ok',
+                        willClose:reload
+                    })
+                },
+                error: function () {
+                    alert("Server Not Responding");
+                }
+            });
+        });
+        $(document).on("click", ".LI", function(){
+            var id = $(this).attr("id");
+            var data = $("#" + id).data("val");
+            $.ajax({
+                url: "ajax/updatelevel.php",
+                method: "POST",
+                data: {
+                    id: data,
+                    status:2
+                },
+                success: function (result) {
+                    swal.fire({
+                        title: 'Success',
+                        icon: 'success',
+                        confirmButtonText: 'Ok',
+                        willClose:reload
+                    })
+                },
+                error: function () {
+                    alert("Server Not Responding");
+                }
+            });
+        });
+        $(document).on("click", ".LA", function(){
+            var id = $(this).attr("id");
+            var data = $("#" + id).data("val");
+            $.ajax({
+                url: "ajax/updatelevel.php",
+                method: "POST",
+                data: {
+                    id: data,
+                    status:3
+                },
+                success: function (result) {
+                    swal.fire({
+                        title: 'Success',
+                        icon: 'success',
+                        confirmButtonText: 'Ok',
+                        willClose:reload
+                    })
+                },
+                error: function () {
+                    alert("Server Not Responding");
+                }
+            });
+        });  
+    });     
 </script>
 </html>

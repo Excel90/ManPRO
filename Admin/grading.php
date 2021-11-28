@@ -64,6 +64,13 @@
                     <span>Class</span></a>
             </li>
 
+            <!-- Nav Item - Grading -->
+            <li class="nav-item">
+                <a class="nav-link" href="Level.php">
+                    <i class="fas fa-fw fa-level-up-alt"></i>
+                    <span>Level</span></a>
+            </li>
+
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 

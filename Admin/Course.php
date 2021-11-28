@@ -11,14 +11,14 @@
 <html lang="en">
 
 <head>
-
+    <?php include 'include.php'; ?>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Attendance</title>
+    <title>SB Admin 2 - Course</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -28,7 +28,6 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
 </head>
 
 <body id="page-top">
@@ -92,10 +91,9 @@
                         <a class="collapse-item" href="Teacher.php">Teacher</a>
                         <h6 class="collapse-header">Manage Course</h6>
                         <a class="collapse-item" href="Class.php">Class</a>
-                        <a class="collapse-item active" href="Attendance.php">Attendance</a>
                         <a class="collapse-item" href="Schedule.php">Schedule</a>
                         <h6 class="collapse-header">Manage Price</h6>
-                        <a class="collapse-item" href="Packet.php">Packet Price</a>
+                        <a class="collapse-item active" href="Course.php">Course Price</a>
                     </div>
                 </div>
             </li>
@@ -154,11 +152,47 @@
                 <div class="container-fluid">
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Attendance</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Course</h1>
+                    </div>
+                    <div class="card-body mr-3">
+                        <div style="overflow-x: auto;">
+                            <table id="table_id" class="table display nowrap mb-3" style="text-align: center;">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Course Name</th>
+                                        <th>Price</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="packetlist">
+                    
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
                 <!-- /.container-fluid -->
 
+                <!-- Modal -->
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">Edit course</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body" id="packetmodal">
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary update" data-bs-dismiss="modal">Update</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Modal -->
             </div>
             <!-- End of Main Content -->
 
@@ -221,5 +255,59 @@
     <script src="js/demo/chart-pie-demo.js"></script>
 
 </body>
-
+<script>
+    $(document).ready(function(){
+        $.ajax({
+            url: "ajax/getpacket.php",
+            method: "POST",
+            data: {
+                
+            },
+            success: function (result) {
+                $("#packetlist").html(result);
+            },
+            error: function () {
+                alert("Server Not Responding");
+            }
+        });
+        $(document).on("click", ".edit", function(){
+            var id = $(this).attr("id");
+            var data = $("#" + id).data("val");
+            $.ajax({
+                url: "ajax/getmodalpacket.php",
+                method: "POST",
+                data: {
+                    id: data
+                },
+                success: function (result) {
+                    $("#packetmodal").html(result);
+                },
+                error: function () {
+                    alert("Server Not Responding");
+                }
+            });
+        }); 
+        $(document).on("click", ".update", function(){
+            var id = $("#id").val();
+            var name = $("#name").val();
+            var price = $("#price").val();
+            $.ajax({
+                url: "ajax/editpacket.php",
+                method: "POST",
+                data: {
+                    id: id,
+                    name: name,
+                    price: price
+                },
+                success: function (result) {
+                    alert("Success");
+                    window.location.href = "Packet.php";
+                },
+                error: function () {
+                    alert("Server Not Responding");
+                }
+            });
+        }); 
+    });
+</script>
 </html>

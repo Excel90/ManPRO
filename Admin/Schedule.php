@@ -92,10 +92,9 @@
                         <a class="collapse-item" href="Teacher.php">Teacher</a>
                         <h6 class="collapse-header">Manage Course</h6>
                         <a class="collapse-item" href="Class.php">Class</a>
-                        <a class="collapse-item" href="Attendance.php">Attendance</a>
                         <a class="collapse-item active" href="Schedule.php">Schedule</a>
                         <h6 class="collapse-header">Manage Price</h6>
-                        <a class="collapse-item" href="Packet.php">Packet Price</a>
+                        <a class="collapse-item" href="Course.php">Course Price</a>
                     </div>
                 </div>
             </li>
