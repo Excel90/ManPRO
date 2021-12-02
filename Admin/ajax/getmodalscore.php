@@ -48,7 +48,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                 </div>
                             <div class="col-sm-6 col-12">
                                 <div class="mb-3">
-                                    <input type="number" class="form-control score" value="'.$scores['percentage'].'">
+                                    <input type="number" class="form-control score" value="'.$scores['score'].'">
                                 </div>
                             </div>';
                         }
