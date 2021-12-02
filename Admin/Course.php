@@ -301,7 +301,7 @@
                 },
                 success: function (result) {
                     alert("Success");
-                    window.location.href = "Packet.php";
+                    window.location.href = "Course.php";
                 },
                 error: function () {
                     alert("Server Not Responding");
