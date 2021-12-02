@@ -1,3 +1,13 @@
+<?php 
+require_once "databased.php";
+$_SESSION['email'] = "";
+$_SESSION['first'] = "";
+$_SESSION['last'] = "";
+$_SESSION['birth'] = "";
+$_SESSION['city'] = "";
+$_SESSION['address'] = "";
+
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -9,6 +19,7 @@
     />
     <a href="./uploads/"></a>
     <title>E-COURSE</title>
+    <link rel="icon" type="image/png" href="asset/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;800&display=swap" rel="stylesheet"/>

@@ -1,8 +1,8 @@
 <?php
     $host = '127.0.0.1';
-    $db = 'manpro';
-    $user = 'admin';
-    $pass = 'admin123';
+    $db = 'project2';
+    $user = 'root';
+    $pass = '';
     $charset = 'utf8mb4';
 
     $dsn = "mysql:host=$host;dbname=$db;charset=$charset;";

@@ -26,16 +26,24 @@ if ($_SESSION['username']) {
   <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
   <link rel="stylesheet" href="../asset/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@1,800&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="../asset/favicon.png">
+  <style>
+    .logout {
+      color: black;
+    }
 
+    .logout:hover {
+      color: red;
+    }
+  </style>
 </head>
 <?php
-$sql = "SELECT * FROM student__attendance
-        JOIN attendance ON attendance.id_attendance = student__attendance.id_attendance
-        JOIN class on class.id_class = attendance.id_class
-        WHERE student__attendance.id_student = ? 
-        ORDER BY attendance.attendance_n ASC";
+$sql = "SELECT * 
+FROM `class`
+WHERE id_class = ?";
 $stmt2 = $pdo->prepare($sql);
-$stmt2->execute([$_SESSION['username']]);
+$stmt2->execute([$_POST['id_class']]);
+$fetch2 = $stmt2->fetch();
 ?>
 
 <body>
@@ -65,26 +73,27 @@ $stmt2->execute([$_SESSION['username']]);
           </div>
         </div>
       </div>
-      <div class="col-sm-3 offset-4">
-        <ul class="nav">
+      <div class="col-sm-5 offset-3">
+        <ul class="nav offset-4">
           <li style="margin-left: 2vw"><a href="./student.php">Home</a></li>
           <li style="margin-left: 2vw;"><a href="./history.php">Class</a></li>
           <li><a href="../student/schedule.php" class="mt-2 fas fa-bookmark" style="font-size: 2vw; color: #fbd15b;  margin-left: 3vw;"></a></li>
-          
           <li> <a href="../Manage/transaction_payment.php" class="mt-2 fas fa-bell" style="font-size: 2vw; color: #fbd15b; margin-left: 3vw;"></a></li>
         </ul>
       </div>
-      <div class="col-sm-2" style="background: #fbd15b; border-radius: 10px">
+      <button class="col-sm-2" style="background: #fbd15b; border-radius: 10px; border-style:none;" onclick="">
         <div class="m-2 text-center">
-          <a href="../student/profile.php" style="color:black;"><img src="<?php echo $fetch['picture'] ?>" style="width:20%; border-radius:50%;" alt=""></a>
-          <span class="m-2" style="font-size: 1.5vw"><?php echo $fetch['first_name'] ?> </span>
-          <a href="../Manage/Logout.php"><i class="ms-1 fas fa-sign-out-alt" style="font-size:1.5vw; color:black;"></i></a>
+          <a href="../student/profile.php" style="color:black;">
+            <img src="<?php echo $fetch['picture'] ?>" style="width:2vw; height:2vw; object-fit:cover; border-radius:50%;" alt="">
+            <span class="m-2" style="font-size: 1.5vw"><?php echo $fetch['first_name'] ?> </span>
+            <a class="logout" href="../Manage/Logout.php"><i class="ms-1 fas fa-sign-out-alt" style="font-size:1.5vw;"></i></a>
+          </a>
         </div>
-      </div>
+      </button>
       <div class="row text-center">
         <div class="col" style="margin-top: 20vw; margin-bottom: 20vw; color: white">
-          <h2>WELCOME TO, <?php echo $fetch['first_name']; ?></h2>
-          <h1><?php $name = $stmt2->fetch(); echo $name['class_name']; ?></h1>
+          <h2>Welcome <?php echo $fetch['first_name']; ?> To,</h2>
+          <h1><?php echo $fetch2['class_name'] ?></h1>
         </div>
       </div>
     </div>
@@ -111,7 +120,7 @@ $stmt2->execute([$_SESSION['username']]);
           WHERE student__attendance.id_student = ? AND class.id_class = ?
           ORDER BY attendance.attendance_n ASC;";
         $stmt2 = $pdo->prepare($sql);
-        $stmt2->execute([$_SESSION['username'],$_POST['id_class']]);
+        $stmt2->execute([$_SESSION['username'], $_POST['id_class']]);
 
         ?>
         <?php while ($fetch2 = $stmt2->fetch()) {
@@ -195,9 +204,7 @@ $stmt2->execute([$_SESSION['username']]);
         </div>
         <div class="pt-4">
           <h6>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
-            porttitor velit ut lobortis congue. Maecenas in facilisis ipsum.
-            Integer non consectetur libero.
+            One mission, Becoming your english solution
           </h6>
         </div>
       </div>
@@ -206,10 +213,10 @@ $stmt2->execute([$_SESSION['username']]);
           <h2 style="color: #39229a">Find us on</h2>
         </div>
         <div class="col-sm-5">
-          <i class="fab size-7 fa-linkedin"></i>
-          <i class="fab fa-twitter-square"></i>
-          <i class="fab fa-facebook-square"></i>
-          <i class="fab fa-instagram-square"></i>
+          <a class="find" href=""><i class="fab size-7 fa-linkedin"></i></a>
+          <a class="find" href=""><i class="fab fa-twitter-square"></i></a>
+          <a class="find" href=""><i class="fab fa-facebook-square"></i></a>
+          <a class="find" href=""><i class="fab fa-instagram-square"></i></a>
         </div>
       </div>
     </div>

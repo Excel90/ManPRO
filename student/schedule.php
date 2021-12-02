@@ -23,6 +23,7 @@ if (isset($_SESSION['username'])) {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <link rel="stylesheet" href="../asset/style.css">
+    <link rel="icon" type="image/png" href="../asset/favicon.png">
     <style>
         .btnclass {
             background-color: #FFFFFF;
@@ -43,6 +44,22 @@ if (isset($_SESSION['username'])) {
         .table tr td {
             font-weight: 700;
             color: #4F2BA8;
+        }
+
+        .logout {
+            color: black;
+        }
+
+        .logout:hover {
+            color: red;
+        }
+
+        .find {
+            color: black;
+        }
+
+        .find:hover {
+            color: darkblue;
         }
     </style>
 </head>
@@ -74,21 +91,23 @@ if (isset($_SESSION['username'])) {
                     </div>
                 </div>
             </div>
-            <div class="col-sm-3 offset-4">
-                <ul class="nav">
+            <div class="col-sm-5 offset-3">
+                <ul class="nav offset-4">
                     <li style="margin-left: 2vw"><a href="./student.php">Home</a></li>
                     <li style="margin-left: 2vw;"><a href="./history.php">Class</a></li>
                     <li><a href="../student/schedule.php" class="mt-2 fas fa-bookmark" style="font-size: 2vw; color: #fbd15b;  margin-left: 3vw;"></a></li>
                     <li> <a href="../Manage/transaction_payment.php" class="mt-2 fas fa-bell" style="font-size: 2vw; color: #fbd15b; margin-left: 3vw;"></a></li>
                 </ul>
             </div>
-            <div class="col-sm-2" style="background: #fbd15b; border-radius: 10px">
+            <button class="col-sm-2" style="background: #fbd15b; border-radius: 10px; border-style:none;" onclick="">
                 <div class="m-2 text-center">
-                    <a href="../student/profile.php" style="color:black;"><img src="<?php echo $fetch['picture'] ?>" style="width:20%; border-radius:50%;" alt=""></a>
-                    <span class="m-2" style="font-size: 1.5vw"><?php echo $fetch['first_name'] ?> </span>
-                    <a href="../Manage/Logout.php"><i class="ms-1 fas fa-sign-out-alt" style="font-size:1.5vw; color:black;"></i></a>
+                    <a href="../student/profile.php" style="color:black;">
+                        <img src="<?php echo $fetch['picture'] ?>" style="width:2vw; height:2vw; object-fit:cover; border-radius:50%;" alt="">
+                        <span class="m-2" style="font-size: 1.5vw"><?php echo $fetch['first_name'] ?> </span>
+                        <a class="logout" href="../Manage/Logout.php"><i class="ms-1 fas fa-sign-out-alt" style="font-size:1.5vw;"></i></a>
+                    </a>
                 </div>
-            </div>
+            </button>
             <div class="row text-center">
                 <div class="col" style="margin-top: 20vw; margin-bottom: 20vw; color: white">
                     <h2>WELCOME, <?php echo $fetch['first_name']; ?></h2>
@@ -125,7 +144,8 @@ if (isset($_SESSION['username'])) {
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $a = 0;
+                        <?php
+                        $a = 0;
                         $i = 0;
                         while ($a < $_SESSION['active']) {
                             $idclass = $_SESSION['active_class'][$i];
@@ -137,36 +157,40 @@ if (isset($_SESSION['username'])) {
                             WHERE class.id_class = ?";
                             $stmt = $pdo->prepare($sql);
                             $stmt->execute([$idclass]);
-                            $fetch = $stmt->fetch();
+
+
+                            while ($fetch = $stmt->fetch()) {
                         ?>
-                            <tr>
-                                <td><?php echo $fetch['class_name'] ?></td>
-                                <td><?php echo $fetch['course_name'] ?></td>
-                                <td><?php echo $fetch['first_name'] . " " . $fetch['last_name'] ?></td>
-                                <td><?php echo $fetch['location'] ?></td>
-                                <td><?php echo $fetch['duration'] ?></td>
-                                <td><?php switch ($fetch['days']) {
-                                        case 1:
-                                            echo ('Senin');
-                                            break;
-                                        case 2:
-                                            echo ('Selasa');
-                                            break;
-                                        case 3:
-                                            echo ('Rabu');
-                                            break;
-                                        case 4:
-                                            echo ('Kamis');
-                                            break;
-                                        case 5:
-                                            echo ('Jumat');
-                                            break;
-                                        case 6:
-                                            echo ('Sabtu');
-                                            break;
-                                    } ?></td>
-                            </tr>
-                        <?php $i = $i + 1;
+                                <tr>
+                                    <td><?php echo $fetch['class_name'] ?></td>
+                                    <td><?php echo $fetch['course_name'] ?></td>
+                                    <td><?php echo $fetch['first_name'] . " " . $fetch['last_name'] ?></td>
+                                    <td><?php echo $fetch['location'] ?></td>
+                                    <td><?php echo $fetch['time'] ?></td>
+                                    <td><?php echo $fetch['duration'] ?></td>
+                                    <td><?php switch ($fetch['days']) {
+                                            case 1:
+                                                echo ('Senin');
+                                                break;
+                                            case 2:
+                                                echo ('Selasa');
+                                                break;
+                                            case 3:
+                                                echo ('Rabu');
+                                                break;
+                                            case 4:
+                                                echo ('Kamis');
+                                                break;
+                                            case 5:
+                                                echo ('Jumat');
+                                                break;
+                                            case 6:
+                                                echo ('Sabtu');
+                                                break;
+                                        } ?></td>
+                                </tr>
+                        <?php }
+                            $i = $i + 1;
                             $a = $a + 1;
                         } ?>
                     </tbody>
@@ -229,9 +253,7 @@ if (isset($_SESSION['username'])) {
                 </div>
                 <div class="pt-4">
                     <h6>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
-                        porttitor velit ut lobortis congue. Maecenas in facilisis ipsum.
-                        Integer non consectetur libero.
+                        One mission, Becoming your english solution
                     </h6>
                 </div>
             </div>
@@ -240,10 +262,10 @@ if (isset($_SESSION['username'])) {
                     <h2 style="color: #39229a">Find us on</h2>
                 </div>
                 <div class="col-sm-5">
-                    <i class="fab size-7 fa-linkedin"></i>
-                    <i class="fab fa-twitter-square"></i>
-                    <i class="fab fa-facebook-square"></i>
-                    <i class="fab fa-instagram-square"></i>
+                    <a class="find" href=""><i class="fab size-7 fa-linkedin"></i></a>
+                    <a class="find" href=""><i class="fab fa-twitter-square"></i></a>
+                    <a class="find" href=""><i class="fab fa-facebook-square"></i></a>
+                    <a class="find" href=""><i class="fab fa-instagram-square"></i></a>
                 </div>
             </div>
         </div>

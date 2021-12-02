@@ -80,3 +80,9 @@ a {
   border-radius:50%; 
   width:100%;
 }
+.find  {
+  color: black;
+}
+.find:hover{
+  color:darkblue;
+}

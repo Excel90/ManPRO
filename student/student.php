@@ -5,9 +5,22 @@ if (isset($_SESSION['username'])) {
   $stmt = $pdo->prepare($sql);
   $stmt->execute([$_SESSION['username']]);
   $fetch = $stmt->fetch();
+  $studentid = $fetch['id_student'];
+
+  $i = 0;
+  $sql = "SELECT * FROM upload WHERE id_student = ? AND Status_verify != 0 AND status_progress != 2 AND status_progress != 1";
+  $stmt2 = $pdo->prepare($sql);
+  $stmt2->execute([$studentid]);
+  while ($fetch3 = $stmt2->fetch()) {
+    $_SESSION['active_class'][$i] = $fetch3['id_class'];
+    $i = $i + 1;
+  }
+  $_SESSION['active'] = $i;
 } else {
   echo header("Location: ../index.php");
 }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,6 +28,7 @@ if (isset($_SESSION['username'])) {
 <head>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
   <title>E-COURSE</title>
+  <link rel="icon" type="image/png" href="../asset/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;800&display=swap" rel="stylesheet">
@@ -34,6 +48,22 @@ if (isset($_SESSION['username'])) {
 
     .btnclass:hover {
       background-color: #ddd;
+    }
+
+    .logout {
+      color: black;
+    }
+
+    .logout:hover {
+      color: red;
+    }
+
+    .find {
+      color: black;
+    }
+
+    .find:hover {
+      color: darkblue;
     }
   </style>
 </head>
@@ -65,21 +95,23 @@ if (isset($_SESSION['username'])) {
           </div>
         </div>
       </div>
-      <div class="col-sm-3 offset-4">
-        <ul class="nav">
+      <div class="col-sm-5 offset-3">
+        <ul class="nav offset-4">
           <li style="margin-left: 2vw"><a href="./student.php">Home</a></li>
           <li style="margin-left: 2vw;"><a href="./history.php">Class</a></li>
           <li><a href="../student/schedule.php" class="mt-2 fas fa-bookmark" style="font-size: 2vw; color: #fbd15b;  margin-left: 3vw;"></a></li>
           <li> <a href="../Manage/transaction_payment.php" class="mt-2 fas fa-bell" style="font-size: 2vw; color: #fbd15b; margin-left: 3vw;"></a></li>
         </ul>
       </div>
-      <div class="col-sm-2" style="background: #fbd15b; border-radius: 10px">
+      <button class="col-sm-2" style="background: #fbd15b; border-radius: 10px; border-style:none;" onclick="">
         <div class="m-2 text-center">
-          <a href="../student/profile.php" style="color:black;"><img src="<?php echo $fetch['picture'] ?>" style="width:20%; border-radius:50%;" alt=""></a>
-          <span class="m-2" style="font-size: 1.5vw"><?php echo $fetch['first_name'] ?> </span>
-          <a href="../Manage/Logout.php"><i class="ms-1 fas fa-sign-out-alt" style="font-size:1.5vw; color:black;"></i></a>
+          <a href="../student/profile.php" style="color:black;">
+            <img src="<?php echo $fetch['picture'] ?>" style="width:2vw; height:2vw; object-fit:cover; border-radius:50%;" alt="">
+            <span class="m-2" style="font-size: 1.5vw"><?php echo $fetch['first_name'] ?> </span>
+            <a class="logout" href="../Manage/Logout.php"><i class="ms-1 fas fa-sign-out-alt" style="font-size:1.5vw;"></i></a>
+          </a>
         </div>
-      </div>
+      </button>
       <div class="row text-center">
         <div class="col" style="margin-top: 20vw; margin-bottom: 20vw; color: white">
           <h2>WELCOME, <?php echo $fetch['first_name']; ?></h2>
@@ -98,7 +130,7 @@ if (isset($_SESSION['username'])) {
           $fetch = $stmt->fetch()
           ?>
           <h5 class="mt-4" class="mt-2" style="color: #39229a"><?php echo $fetch['course_name'] ?></h5>
-          <span class="mt-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          <span class="mt-4"><?php echo $fetch['description'] ?>
           </span>
           <h6 class="mt-4">Rp.<?php echo number_format($fetch['price']) ?>,000</h6>
         </div>
@@ -119,7 +151,7 @@ if (isset($_SESSION['username'])) {
           $fetch = $stmt->fetch()
           ?>
           <h5 class="mt-4" style="color: #39229a"><?php echo $fetch['course_name'] ?></h5>
-          <span class="mt-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          <span class="mt-4"><?php echo $fetch['description'] ?>
           </span>
           <h6 class="mt-4">Rp.<?php echo number_format($fetch['price']) ?>,000</h6>
         </div>
@@ -140,7 +172,7 @@ if (isset($_SESSION['username'])) {
           $fetch = $stmt->fetch()
           ?>
           <h5 class="mt-4" style="color: #39229a"><?php echo $fetch['course_name'] ?></h5>
-          <span class="mt-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          <span class="mt-4"><?php echo $fetch['description'] ?>
           </span>
           <h6 class="mt-4">Rp.<?php echo  number_format($fetch['price']) ?>,000</h6>
         </div>
@@ -182,9 +214,7 @@ if (isset($_SESSION['username'])) {
         </div>
         <div class="pt-4">
           <h6>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
-            porttitor velit ut lobortis congue. Maecenas in facilisis ipsum.
-            Integer non consectetur libero.
+            One mission, Becoming your english solution
           </h6>
         </div>
       </div>
@@ -193,10 +223,10 @@ if (isset($_SESSION['username'])) {
           <h2 style="color: #39229a">Find us on</h2>
         </div>
         <div class="col-sm-5">
-          <i class="fab size-7 fa-linkedin"></i>
-          <i class="fab fa-twitter-square"></i>
-          <i class="fab fa-facebook-square"></i>
-          <i class="fab fa-instagram-square"></i>
+          <a class="find" href=""><i class="fab size-7 fa-linkedin"></i></a>
+          <a class="find" href=""><i class="fab fa-twitter-square"></i></a>
+          <a class="find" href=""><i class="fab fa-facebook-square"></i></a>
+          <a class="find" href=""><i class="fab fa-instagram-square"></i></a>
         </div>
       </div>
     </div>

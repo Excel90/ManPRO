@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 </head>
 
 <body>
-  <div class="container-fluid" style="background: #5a47ab; width: 100%; left:0; position:fixed; width:100vw; height:100vh;">
+  <div class="container-fluid" style="background: #5a47ab; width: 100%; left:0; width:100vw; height:100vh;">
     <a href="../student/student.php">
       <div class="row p-4 text-center">
         <div class="d-flex justify-content-center">

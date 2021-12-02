@@ -8,15 +8,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
     $stmt->execute([$email]);
     $fetch= $stmt->fetch();
     $studentid =$fetch['id_student'];
-    $i = 0;
+
     if ($fetch != null) {
         $passHash = $fetch['password'];
         if(password_verify($password, $passHash)) {
             $_SESSION['username'] = $fetch['id_student'];
-
+            $i = 0;
             $sql = "SELECT * 
             FROM upload
-            WHERE id_student = ? AND status_progress = 0 AND Status_verify != 0 " ;
+            WHERE id_student = ? AND Status_verify != 0 AND status_progress != 2 AND status_progress != 1" ;
             $stmt = $pdo->prepare($sql);
             $stmt->execute([$studentid]);
             while($fetch = $stmt->fetch()){

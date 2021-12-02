@@ -23,6 +23,7 @@ if (isset($_SESSION['username'])) {
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
   <link rel="stylesheet" href="../asset/style.css">
+  <link rel="icon" type="image/png" href="../asset/favicon.png">
   <style>
     .btnclass {
       background-color: #FFFFFF;
@@ -43,6 +44,29 @@ if (isset($_SESSION['username'])) {
     .table tr td {
       font-weight: 700;
       color: #4F2BA8;
+    }
+
+    .myimg {
+      width: 10vw;
+      height: 10vw;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .logout {
+      color: black;
+    }
+
+    .logout:hover {
+      color: red;
+    }
+
+    .find {
+      color: black;
+    }
+
+    .find:hover {
+      color: darkblue;
     }
   </style>
 </head>
@@ -74,8 +98,8 @@ if (isset($_SESSION['username'])) {
         </div>
       </div>
     </div>
-    <div class="col-sm-3 offset-4">
-      <ul class="nav">
+    <div class="col-sm-5 offset-3">
+      <ul class="nav offset-4">
         <li style="margin-left: 2vw;"><a href="./student.php">Home</a></li>
         <li style="margin-left: 2vw;"><a href="./history.php">Class</a></li>
         <li><a href="../student/schedule.php" class="mt-2 fas fa-bookmark" style="font-size: 2vw; color: #fbd15b;  margin-left: 3vw;"></a></li>
@@ -83,13 +107,15 @@ if (isset($_SESSION['username'])) {
         <li> <a href="../Manage/transaction_payment.php" class="mt-2 fas fa-bell" style="font-size: 2vw; color: #fbd15b; margin-left: 3vw;"></a></li>
       </ul>
     </div>
-    <div class="col-sm-2" style="background: #fbd15b; border-radius: 10px">
+    <button class="col-sm-2" style="background: #fbd15b; border-radius: 10px; border-style:none;" onclick="">
       <div class="m-2 text-center">
-        <a href="../student/profile.php" style="color:black;"><img src="<?php echo $fetch['picture'] ?>" style="width:20%; border-radius:50%;" alt=""></a>
-        <span class="m-2" style="font-size: 1.5vw"><?php echo $fetch['first_name'] ?> </span>
-        <a href="../Manage/Logout.php"><i class="ms-1 fas fa-sign-out-alt" style="font-size:1.5vw; color:black;"></i></a>
+        <a href="../student/profile.php" style="color:black;">
+          <img src="<?php echo $fetch['picture'] ?>" style="width:2vw; height:2vw; object-fit:cover; border-radius:50%;" alt="">
+          <span class="m-2" style="font-size: 1.5vw"><?php echo $fetch['first_name'] ?> </span>
+          <a class="logout" href="../Manage/Logout.php"><i class="ms-1 fas fa-sign-out-alt" style="font-size:1.5vw;"></i></a>
+        </a>
       </div>
-    </div>
+    </button>
     <div class="row text-center">
       <div class="col" style="margin-top: 20vh; margin-bottom: 20vh; color: white">
         <h2>WELCOME, <?php echo $fetch['first_name']; ?></h2>
@@ -102,7 +128,7 @@ if (isset($_SESSION['username'])) {
       <div class="col-md-4" style="border-radius:10px; border:black solid 2px">
         <div class="col-sm-5">
           <div class="mt-2">
-            <img style="width:100%; border-radius:50%;" src="<?php echo $fetch['picture'] ?>" alt="">
+            <img class="myimg" src="<?php echo $fetch['picture'] ?>" alt="">
           </div>
         </div>
         <div class="col-sm-5">
@@ -158,10 +184,10 @@ if (isset($_SESSION['username'])) {
     <center>
       <form action="../Manage/profile.php" method="POST" enctype="multipart/form-data">
         <div class="col-md-4" style="border-radius:10px; border:black solid 2px">
-          <div class="col-sm-5">
+          <div class="col-sm-5 ">
             <div class="mt-2">
-              <img id="output" class="mb-3" src="<?php echo $fetch['picture'] ?>" alt="" style="width:100%; border-radius:50%;">
-              <input style="margin-top:10px;" type="file" accept="image/*" id="berkas" name="berkas" onchange="loadFile(event)">
+              <img class="myimg" id="output" class="mb-3 " src="<?php echo $fetch['picture'] ?>" alt="">
+              <input style="margin-top:10px;" type="file" accept="image/*" value="<?php echo $fetch['picture'] ?>" id="berkas" name="berkas" onchange="loadFile(event)">
             </div>
           </div>
           <div class="row">
@@ -170,27 +196,27 @@ if (isset($_SESSION['username'])) {
                 <tbody>
                   <tr>
                     <th scope="row">First Name</th>
-                    <td><input type="text" class="form-control" name="firstname" id="firstname" required placeholder="<?php echo strval($fetch['first_name']) ?> ">
+                    <td><input type="text" class="form-control" name="firstname" id="firstname" value="<?php echo ($fetch['first_name']) ?>" placeholder="<?php echo strval($fetch['first_name']) ?> ">
                   </tr>
                   <tr>
                     <th scope="row">Last Name</th>
-                    <td><input type="text" class="form-control" name="lastname" id="lastname" required placeholder="<?php echo strval($fetch['last_name']) ?>"></td>
+                    <td><input type="text" class="form-control" name="lastname" id="lastname" value="<?php echo ($fetch['last_name']) ?>" placeholder="<?php echo strval($fetch['last_name']) ?>"></td>
                   </tr>
                   <tr>
                     <th scope="row">address</th>
-                    <td> <input type="text" class="form-control" name="address" id="address" required placeholder="<?php echo strval($fetch['address']) ?>"></td>
+                    <td> <input type="text" class="form-control" name="address" id="address" value="<?php echo ($fetch['address']) ?>" placeholder="<?php echo strval($fetch['address']) ?>"></td>
                   </tr>
                   <tr>
                     <th scope="row">City</th>
-                    <td><input type="text" class="form-control" name="city" id="city" required placeholder="<?php echo strval($fetch['birth_place']) ?>"></td>
+                    <td><input type="text" class="form-control" name="city" id="city" value="<?php echo ($fetch['birth_place']) ?>" placeholder="<?php echo strval($fetch['birth_place']) ?>"></td>
                   </tr>
                   <tr>
                     <th scope="row">Birthdate</th>
-                    <td> <input type="date" class="form-control" name="birthdate" id="birthdate" required> </td>
+                    <td> <input type="date" class="form-control" name="birthdate" value="<?php echo ($fetch['birth_date']) ?>" id="birthdate"> </td>
                   </tr>
                   <tr>
                     <th scope="row">Email</th>
-                    <td> <input type="Text" class="form-control" name="email" id="email" placeholder="<?php echo strval($fetch['email']) ?>" required> </td>
+                    <td> <input type="Text" class="form-control" name="email" value="<?php echo ($fetch['email']) ?>" id="email" placeholder="<?php echo strval($fetch['email']) ?>"> </td>
                   </tr>
                 </tbody>
               </table>
@@ -245,9 +271,7 @@ if (isset($_SESSION['username'])) {
       </div>
       <div class="pt-4">
         <h6>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
-          porttitor velit ut lobortis congue. Maecenas in facilisis ipsum.
-          Integer non consectetur libero.
+          One mission, Becoming your english solution
         </h6>
       </div>
     </div>
@@ -256,10 +280,10 @@ if (isset($_SESSION['username'])) {
         <h2 style="color: #39229a">Find us on</h2>
       </div>
       <div class="col-sm-5">
-        <i class="fab size-7 fa-linkedin"></i>
-        <i class="fab fa-twitter-square"></i>
-        <i class="fab fa-facebook-square"></i>
-        <i class="fab fa-instagram-square"></i>
+        <a class="find" href=""><i class="fab size-7 fa-linkedin"></i></a>
+        <a class="find" href=""><i class="fab fa-twitter-square"></i></a>
+        <a class="find" href=""><i class="fab fa-facebook-square"></i></a>
+        <a class="find" href=""><i class="fab fa-instagram-square"></i></a>
       </div>
     </div>
   </div>

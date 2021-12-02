@@ -29,24 +29,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $stmt = $pdo->prepare($sql);
             $stmt->execute([$studentid]);
             $fetch = $stmt->fetch();
-
-            // Check if file already exists
-            if($fetch['status_verify'] == 0){
-                $path_filename_ext = $path_filename_ext . $stmt->rowCount() . "." . $ext;
-                move_uploaded_file($temp_name, $path_filename_ext);
-                $sql = "UPDATE `upload` SET `path_file` = ? WHERE `id_student` = ?";
-                $stmt = $pdo->prepare($sql);
-                $stmt->execute([$path_filename_ext, $studentid]);
-                echo header("Location: ../student/student.php?success");
-            } else {
-                $path_filename_ext = $path_filename_ext . $stmt->rowCount() . "." . $ext;
-                move_uploaded_file($temp_name, $path_filename_ext);
-                $sql = "INSERT INTO `upload` VALUES (default, ?, ?, '0', '0', ?)";
-
-                $stmt = $pdo->prepare($sql);
-                $stmt->execute([$studentid,$idclass, $path_filename_ext]);
-                echo header("Location: ../student/student.php");
-            }
+      
+            $path_filename_ext = $path_filename_ext . $stmt->rowCount() . "." . $ext;
+            move_uploaded_file($temp_name, $path_filename_ext);
+            $sql = "INSERT INTO `upload` VALUES (default, ?, ?, '0', '0', ?)";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([$studentid,$idclass, $path_filename_ext]);
+            echo header("Location: ../student/student.php?success");
         }
         else {
             

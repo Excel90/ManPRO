@@ -3,6 +3,12 @@ include_once "./databased.php";
 if(isset($_SESSION['username'])){
   echo header ("Location: student/student.php");
 }
+$_SESSION['email'] = "";
+$_SESSION['first'] = "";
+$_SESSION['last'] = "";
+$_SESSION['birth'] = "";
+$_SESSION['city'] = "";
+$_SESSION['address'] = "";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,6 +20,7 @@ if(isset($_SESSION['username'])){
       crossorigin="anonymous"
     />
     <title>E-COURSE</title>
+    <link rel="icon" type="image/png" href="asset/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;800&display=swap" rel="stylesheet">
@@ -22,6 +29,14 @@ if(isset($_SESSION['username'])){
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <link rel="stylesheet" href="asset/style.css">
+    <style>
+      .find  {
+        color: black;
+      }
+      .find:hover{
+        color:darkblue;
+      }
+    </style>
   </head>
 <body>
   <div class="container-fluid">
@@ -86,15 +101,15 @@ if(isset($_SESSION['username'])){
               </div>
             </div>
           </div>
-          <div class="col-sm-5 offset-3">
+          <div class="col-md-5 offset-4">
             <ul class="nav p-2">
               <li><a href="#home">Home</a></li>
-              <li class="ms-5"><a href="#gallery">Gallery</a></li>
-              <li class="ms-5"><a href="#testimony">Testimony</a></li>
+              <li class="ms-4"><a href="#gallery">Gallery</a></li>
+              <li class="ms-4"><a href="#testimony">Testimony</a></li>
             </ul>
           </div>
-          <div class="col-sm-1 mt-2 login_logo">
-            <a href="./Signin.php">
+          <div class="col mt-2 login_logo">
+            <a href="./Signin.php" "> 
               <svg
                 id="Layer_1"
                 data-name="Layer 1"
@@ -155,53 +170,14 @@ if(isset($_SESSION['username'])){
           <center>
             <h4 class="mt-3">Hello Students</h6>
             <h1 class="mt-3">Welcome to Education</h2>
-            <div class="row ms-5">
-              <div class=" col-sm-4 join_logo mt-3">
+            <div class="row">
+              <div class=" col join_logo ">
                 <a href="./Signin.php">
-                  <svg
-                    id="Layer_1"
-                    data-name="Layer 1"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 1040.26 461.19"
-                  >
-                    <defs>
-                      <style>
-                        .cls-1-join {
-                          fill: #ffffff;
-                        }
-                        .cls-2-join {
-                          fill: none;
-                          stroke: #ffffff;
-                          stroke-miterlimit: 10;
-                          stroke-width: 20px;
-                        }
-                      </style>
-                    </defs>
-                    <path
-                      class="cls-1-join"
-                      d="M353.29,167.82V317.18q0,34.69-19.53,53.43t-52.65,18.75q-34.68,0-55.62-19.68t-20.94-55.93h53.12q0,13.74,5.63,20.77t16.25,7q9.68,0,15-6.25t5.32-18.13V167.82Z"
-                      transform="translate(-19.87 -39.4)"
-                    />
-                    <path
-                      class="cls-1-join"
-                      d="M429.68,378.74a80,80,0,0,1-32.18-31.25Q385.79,327.18,385.78,300q0-26.88,11.88-47.34a80.61,80.61,0,0,1,32.49-31.41q20.63-10.92,46.25-10.93t46.24,10.93a80.7,80.7,0,0,1,32.5,31.41Q567,273.12,567,300t-12,47.34a81.36,81.36,0,0,1-32.8,31.4q-20.79,10.93-46.41,10.94T429.68,378.74Zm72.18-46.56q10.78-11.25,10.78-32.18t-10.46-32.19a33.84,33.84,0,0,0-25.78-11.25q-15.63,0-25.94,11.1T440.15,300q0,20.94,10.16,32.18a32.83,32.83,0,0,0,25.46,11.25A34.79,34.79,0,0,0,501.86,332.18Z"
-                      transform="translate(-19.87 -39.4)"
-                    />
-                    <path
-                      class="cls-1-join"
-                      d="M599.35,186.41a26.83,26.83,0,0,1-8.9-20.46,27.2,27.2,0,0,1,8.9-20.78q8.91-8.28,23-8.28,13.74,0,22.65,8.28A27.18,27.18,0,0,1,653.88,166,26.8,26.8,0,0,1,645,186.41q-8.9,8.29-22.65,8.28Q608.27,194.69,599.35,186.41Zm49.53,26.41V387.18H595.45V212.82Z"
-                      transform="translate(-19.87 -39.4)"
-                    />
-                    <path
-                      class="cls-1-join"
-                      d="M842.77,230.78q18.27,19.86,18.28,54.53V387.18H807.93V292.5q0-17.5-9.07-27.19t-24.37-9.68q-15.32,0-24.37,9.68t-9.06,27.19v94.68H687.63V212.82h53.43v23.12a56.36,56.36,0,0,1,21.87-18.28,69.55,69.55,0,0,1,30.94-6.72Q824.48,210.94,842.77,230.78Z"
-                      transform="translate(-19.87 -39.4)"
-                    />
-                  </svg>
+                  <p style="font-size:3vw; font-weight:bold;" class="aboutus">Join</p>
                 </a>
               </div>
-              <div class="col-7 mt-4 ">
-                <a href="#"><h2 class="aboutus">ABOUT US</h2></a>
+              <div class="col m-3">
+                <a href="#aboutus"><p style="font-size:2vw; font-weight:bold;" class="aboutus">ABOUT US</p></a>
               </div>
             </div>
           
@@ -215,24 +191,24 @@ if(isset($_SESSION['username'])){
         <div class="col-sm-6 offset-3">
           <center>
             <H4 style="color:#39229A;"">Why US ?</H4>
-            <H5>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor velit ut lobortis congue. Maecenas in facilisis ipsum. Integer non consectetur libero.</H5>
+            <H5>Becasue our mission is to increase the language skill in English, because communication in a second language is needed in this digital era.</H5>
           </center>
         </div>
         <div class="row p-5 text-center">
           <div class="col-sm-4  mt-4 p-4">
             <img src="asset/gambar1.png" alt="" style="width: 100%;">
-            <h4 class="mt-2" style="color:#39229A;">Lorem ipsum</h4>
-            <h5>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </h5>
+            <h4 class="mt-2" style="color:#39229A;">Best Teaching</h4>
+            <h5>With materials taken from real day-to-day experience</h5>
           </div>
           <div class="col-sm-4 mt-2 p-4">
             <img src="asset/gambar2.png " alt="" style="width: 90%">
-            <h4 style="color:#39229A;">Lorem ipsum</h4>
-            <h5>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </h5>
+            <h4 style="color:#39229A;">Certified</h4>
+            <h5>We deliver authorized certificate for our graduate </h5>
           </div>
           <div class="col-sm-4 mt-4 p-4">
             <img src="asset/gambar3.png" alt="" style="width: 60%"">
-            <h4 class="mt-2" style="color:#39229A;">Lorem ipsum</h4>
-            <h5>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </h5>
+            <h4 class="mt-2" style="color:#39229A;">Best Material</h4>
+            <h5> Guarenteed materials that you can get the best out of you!</h5>
           </div>
         </div>
         <div class="row text-center" id="gallery" >
@@ -252,24 +228,24 @@ if(isset($_SESSION['username'])){
             <div class="owl-carousel testi">
               <div > 
                 <img src="asset/testi1.jpg" alt="" style="width: 50%; margin:auto;"> 
-                <h4 class="mt-2" style="color:#39229A;">Lorem ipsum</h4>
-                <h5>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </h5>
+                <h4 class="mt-2" style="color:#39229A;">Caitlyn</h4>
+                <h5>"My English improved a lot after joining E-Course"</h5>
               </div>
               <div> 
                 <img src="asset/2.jpg" alt="" style="width: 50%; margin:auto;">
-                <h4 class="mt-2" style="color:#39229A;">Lorem ipsum</h4>
-                <h5>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </h5>
+                <h4 class="mt-2" style="color:#39229A;">Young B</h4>
+                <h5>"Practicing with my friends sure helped me a lot" </h5>
               </div>
               <div> 
                 <img src="asset/3.jpg" alt="" style="width: 50%; margin:auto;">
-                <h4 class="mt-2" style="color:#39229A;">Lorem ipsum</h4>
-                <h5>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </h5>
+                <h4 class="mt-2" style="color:#39229A;">Mario</h4>
+                <h5>"Tutorial that always can be played back"</h5>
                </div>
             </div>
           </div>
         </div>
         <div class="row mt-5">
-          <div class="col-sm-4 text-end ms-4">
+          <div class="col-sm-4 text-end ms-4" id="aboutus">
             <div class="col-10 offset-2">
               <div class="icon mt-0">
                 <div class="ecourse">
@@ -328,8 +304,8 @@ if(isset($_SESSION['username'])){
             </div>
             <div class="pt-4">
               <H6>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent porttitor velit ut lobortis congue. Maecenas in facilisis ipsum. Integer non consectetur libero.
-              </H6>
+              One mission, Becoming your english solution
+            </H6>
             </div>
           </div>
           <div class="col offset-3" style="font-size:3vw">
@@ -337,10 +313,10 @@ if(isset($_SESSION['username'])){
               <h2 style="color:#39229A;">Find us on</h2>
             </div>
             <div class="col-sm-5">
-              <i class="fab size-7 fa-linkedin"></i>
-              <i class="fab fa-twitter-square"></i>
-              <i class="fab fa-facebook-square"></i>
-              <i class="fab fa-instagram-square"></i>
+              <a class="find" href=""><i class="fab size-7 fa-linkedin"></i></a> 
+              <a class="find" href=""><i class="fab fa-twitter-square"></i></a>
+              <a class="find" href=""><i class="fab fa-facebook-square"></i></a>
+              <a class="find" href=""><i class="fab fa-instagram-square"></i></a>
             </div>
           </div>
         </div>
@@ -348,8 +324,10 @@ if(isset($_SESSION['username'])){
       <script>
         $('.loop').owlCarousel({
             center: true,
-            loop:false,
+            loop:true,
             margin:10,
+            autoplay:true,
+            autoplayTimeout:5000,
             responsive:{
                 600:{
                     items:1
@@ -361,6 +339,8 @@ if(isset($_SESSION['username'])){
             items:2,
             loop:true,
             margin:20,
+            autoplay:true,
+            autoplayTimeout:7000,
             responsive:{
                 100:{
                     items:2
