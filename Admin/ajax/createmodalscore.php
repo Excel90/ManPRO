@@ -18,13 +18,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                         <div class="mb-3">
                             <input type="text" value="'.$id.'" class="form-control" id="idc" hidden disabled>
                             <label for="name" class="form-label">Score For</label>
-                            <input type="text" value="'.$score['score_for'].'" class="form-control" id="scrf">
+                            <input type="text" value="" class="form-control" id="scrf">
                         </div>
                     </div>
                     <div class="col-sm-6 col-12">
                     <div class="mb-3">
                         <label for="name" class="form-label">Percentage</label>
-                        <input type="number" class="form-control" value="'.$score['percentage'].'" id="percent">
+                        <input type="number" class="form-control" value="" id="percent">
                     </div>
                     </div>';
                         while ($student = $stmt2->fetch()) {
@@ -39,7 +39,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                 </div>
                             <div class="col-sm-6 col-12">
                                 <div class="mb-3">
-                                    <input type="number" class="form-control score" value="'.$scores['score'].'" id="percent">
+                                    <input type="number" class="form-control score" value="" id="percent">
                                 </div>
                             </div>';
                         }
