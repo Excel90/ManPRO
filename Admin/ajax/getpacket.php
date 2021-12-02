@@ -9,7 +9,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $stmt->execute([]);
     $packet = [];
     while($packet = $stmt->fetch()){
-        echo "<tr><td>".$no."</td><td>" .$packet['course_name']. "</td><td>" .$packet['price']. "</td><td><button type='button' class='btn btn-primary edit' id=".$packet['id_course']." data-val=".$packet['id_course']." data-bs-toggle='modal' data-bs-target='#staticBackdrop'>Edit</button></td></tr>";
+        echo "<tr><td>".$no."</td>
+        <td>" .$packet['course_name']. "</td>
+        <td>" .$packet['price']. "</td>
+        <td>".$packet['description']."</td>
+        <td><button type='button' class='btn btn-primary edit' id=".$packet['id_course']." data-val=".$packet['id_course']." data-bs-toggle='modal' data-bs-target='#staticBackdrop'>Edit</button></td></tr>";
         $no=$no+1;
     }
 }

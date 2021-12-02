@@ -6,8 +6,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $id = $_POST['id'];
     $name = $_POST['name'];
     $price = $_POST['price'];
-    $query = "UPDATE course SET course_name = ?, price = ? WHERE id_course = ?";
+    $about = $_POST['about'];
+    $query = "UPDATE course SET course_name = ?, price = ?, description = ? WHERE id_course = ?";
     $stmt = $pdo->prepare($query);
-    $stmt->execute([$name, $price, $id]);
+    $stmt->execute([$name, $price, $about, $id]);
 }
 ?>

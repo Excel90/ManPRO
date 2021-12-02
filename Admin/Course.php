@@ -162,6 +162,7 @@
                                         <th>#</th>
                                         <th>Course Name</th>
                                         <th>Price</th>
+                                        <th>Description</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -291,13 +292,15 @@
             var id = $("#id").val();
             var name = $("#name").val();
             var price = $("#price").val();
+            var about = $("#desc").val();
             $.ajax({
                 url: "ajax/editpacket.php",
                 method: "POST",
                 data: {
                     id: id,
                     name: name,
-                    price: price
+                    price: price,
+                    about: about
                 },
                 success: function (result) {
                     alert("Success");

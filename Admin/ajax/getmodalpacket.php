@@ -15,11 +15,20 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                         <input type="text" value="'.$packet['id_course'].'" class="form-control" id="id" hidden>
                         <label for="name" class="form-label">Course Name</label>
                         <input type="text" value="'.$packet['course_name'].'" class="form-control" id="name">
-                    </div></div>
+                    </div>
+                </div>
                 <div class="col-sm-6 col-12">
                     <div class="mb-3">
                         <label for="price" class="form-label">Price</label>
                         <input type="text" class="form-control" value="'.$packet['price'].'" id="price">
-                    </div></div></div>';
+                    </div>
+                </div>
+                <div class="col-sm-6 col-12">
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Description</label>
+                        <textarea class="form-control" rows="10" id="desc">'.$packet['description'].'</textarea>
+                    </div>
+                </div>
+            </div>';
 }
 ?>
