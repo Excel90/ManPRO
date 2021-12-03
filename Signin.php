@@ -246,7 +246,7 @@ if (isset($_GET['error'])) {
                 </div>
                 <div class="row ms-2 mt-2">
                   <div class="col" style="font-size:1vw;">
-                    By clicking Regist In, you agree to our <a href="" style="color:#39229a; text-decoration:underline;"> Terms, Data Policy and Cookie Policy. </a> You may receive SMS notifications from us and can opt out at any time.
+                    By clicking Regist In, you agree to our <a href="./Manage/terms.php" style="color:#39229a; text-decoration:underline;"> Terms, Data Policy and Cookie Policy. </a> You may receive SMS notifications from us and can opt out at any time.
                   </div>
                 </div>
                 <div class="text-center mt-4">

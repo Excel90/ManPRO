@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $sql = "INSERT INTO `upload` VALUES (default, ?, ?, '0', '0', ?)";
             $stmt = $pdo->prepare($sql);
             $stmt->execute([$studentid,$idclass, $path_filename_ext]);
-            echo header("Location: ../student/student.php?success");
+            echo header("Location: ../manage/Registration_Success.php?success=$idclass");
         }
         else {
             
