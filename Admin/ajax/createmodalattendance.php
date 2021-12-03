@@ -9,7 +9,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $stmt2->execute([$id]);
     $student=[];
         echo '<div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Create data attendance</h5>
+                <h5 class="modal-title me-5" id="staticBackdropLabel">Create data attendance</h5>
+                <button type="button" class="btn btn-primary ez">Hadir Semua</button>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -38,16 +39,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                             $name = $stmt3->fetch();
                             echo '<div class="col-sm-6 col-12">
                                     <div class="mb-3">
-                                        <label for="name" class="form-label name">'.$name['first_name'].' '.$name['last_name'].'</label>
+                                        <label for="name" id ="'.$student['id_student'].'" class="form-label name">'.$name['first_name'].' '.$name['last_name'].'</label>
                                     </div>
                                 </div>
                             <div class="col-sm-6 col-12">
                                 <div class="mb-3">
-                                    <select id="'.$student['id_student'].'" name="s">
-                                        <option selected disabled hidden></option>
-                                        <option value = "1">Hadir</option>
-                                        <option value = "2">Tidak Hadir</option>
-                                    </select>
+                                    <input class = "att" type="radio" id ="'.$student['id_student'].'" name="'.$student['id_student'].'" value="1">
+                                    <label>Hadir</label>
+                                    <input class = "att" type="radio" id ="'.$student['id_student'].'" name="'.$student['id_student'].'" value="2">
+                                    <label>Tidak Hadir</label>
                                 </div>
                             </div>';
                         }

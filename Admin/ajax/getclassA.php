@@ -9,13 +9,18 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $stmt->execute([]);
     $class = [];
     while($class = $stmt->fetch()){
+        $query2 = "SELECT * FROM upload where id_class = ?";
+        $stmt2 = $pdo->prepare($query2);
+        $stmt2->execute([$class['id_class']]);
         echo "<tr><td>".$no."</td>
         <td>" .$class['class_name']. "</td>
         <td>" .$class['first_name']." ".$class['last_name'].  "</td>
         <td>" .$class['course_name']. "</td>
         <td>" .$class['start_date']. "</td>
         <td>" .$class['end_date']. "</td>
-        <td><button type='button' class='btn btn-primary edit' id=".$class['id_class']." data-val=".$class['id_class']." data-bs-toggle='modal' data-bs-target='#staticBackdrop'>Edit</button>
+        <td>" .$stmt2->rowCount(). "</td>
+        <td><button type='button' class='btn btn-info view' id=".$class['id_class']." data-val=".$class['id_class']." data-bs-toggle='modal' data-bs-target='#staticBackdrop'>View</button>
+        <button type='button' class='btn btn-primary edit' id=".$class['id_class']." data-val=".$class['id_class']." data-bs-toggle='modal' data-bs-target='#staticBackdrop'>Edit</button>
         <button type='button' class='btn btn-danger delete' id=".$class['id_class']." data-val=".$class['id_class'].">Delete</button></td>
         <td></td>
         </tr>";

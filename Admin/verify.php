@@ -72,7 +72,6 @@
                 <div id="collapseOffice" class="collapse" aria-labelledby="headingOffice"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="company.php">Company Profile</a>
                         <a class="collapse-item" href="TAA.php">Terms and Agreement</a>
                     </div>
                 </div>

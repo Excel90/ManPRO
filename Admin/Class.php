@@ -72,7 +72,6 @@
                 <div id="collapseOffice" class="collapse" aria-labelledby="headingOffice"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="company.php">Company Profile</a>
                         <a class="collapse-item" href="TAA.php">Terms and Agreement</a>
                     </div>
                 </div>
@@ -166,8 +165,8 @@
                                         <th>Course Name</th>
                                         <th>Start Date</th>
                                         <th>End Date</th>
+                                        <th>Jumlah Pendaftar</th>
                                         <th><button type="button" class="btn btn-primary create" id="" data-val="" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Create</button></th>
-                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody id="classlist">
@@ -281,6 +280,23 @@
             var data = $("#" + id).data("val");
             $.ajax({
                 url: "ajax/getmodalclass.php",
+                method: "POST",
+                data: {
+                    id: data
+                },
+                success: function (result) {
+                    $("#classmodal").html(result);
+                },
+                error: function () {
+                    alert("Server Not Responding");
+                }
+            });
+        }); 
+        $(document).on("click", ".view", function(){
+            var id = $(this).attr("id");
+            var data = $("#" + id).data("val");
+            $.ajax({
+                url: "ajax/viewclassmodal.php",
                 method: "POST",
                 data: {
                     id: data

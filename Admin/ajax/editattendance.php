@@ -22,10 +22,20 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $stmt->execute([$name]);
         $temp = $stmt->fetch();
         $sid = $temp['id_student'];
-
-        $query = "UPDATE student__attendance SET status = ? WHERE id_attendance = ? and id_student = ?";
+        
+        $query = "SELECT * from student__attendance WHERE id_attendance = ? and id_student = ?";
         $stmt = $pdo->prepare($query);
-        $stmt->execute([$status, $id, $sid]);
+        $stmt->execute([$id, $sid]);
+        if ($stmt->rowCount() >= 1) {
+            $query = "UPDATE student__attendance SET status = ? WHERE id_attendance = ? and id_student = ?";
+            $stmt = $pdo->prepare($query);
+            $stmt->execute([$status, $id, $sid]);
+        }
+        else {
+            $query = "INSERT INTO student__attendance (status, id_attendance, id_student) VALUES (?,?,?)";
+            $stmt = $pdo->prepare($query);
+            $stmt->execute([$status, $id, $sid]);
+        }
     }
 }
 ?>

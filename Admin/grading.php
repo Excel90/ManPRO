@@ -330,7 +330,7 @@
             var attn = $('#attn').val();
             var date = $('#date').val();
             var topic = $('#topic').val();
-            var x = document.getElementsByName('s');
+            var x;
             var y = document.getElementsByClassName('form-label name');
             var bool = true;
             var name;
@@ -353,9 +353,14 @@
                 },
                 async: false
             });
-            for (let i = 0; i < x.length; i++) {
+            for (let i = 0; i < y.length; i++) {
+                x = document.getElementsByName(y[i].id);
                 name = y[i].innerHTML;
-                status = x[i].value;
+                for (let j = 0; j < x.length; j++) {
+                    if (x[j].checked) {
+                        status =  x[j].value;       
+                    }
+                }
                 $.ajax({
                     url: "ajax/editattendance.php",
                     method: "POST",
@@ -552,7 +557,7 @@
             var attn = $('#attn').val();
             var date = $('#date').val();
             var topic = $('#topic').val();
-            var x = document.getElementsByName('s');
+            var x;
             var y = document.getElementsByClassName('form-label name');
             var bool = true;
             var name;
@@ -575,9 +580,14 @@
                 },
                 async: false
             });
-            for (let i = 0; i < x.length; i++) {
+            for (let i = 0; i < y.length; i++) {
+                x = document.getElementsByName(y[i].id);
                 name = y[i].innerHTML;
-                status = x[i].value;
+                for (let j = 0; j < x.length; j++) {
+                    if (x[j].checked) {
+                        status =  x[j].value;       
+                    }
+                }
                 $.ajax({
                     url: "ajax/createattendance.php",
                     method: "POST",
@@ -662,6 +672,14 @@
             if(bool){
                 alert("Success");
                 window.location.href = "grading.php";
+            }
+        });
+        $(document).on("click", ".ez", function(){
+            x = document.getElementsByClassName('att');
+            for (let i = 0; i < x.length; i++) {
+                if (x[i].value == 1) {
+                    x[i].checked = true;
+                }
             }
         });
     });     

@@ -22,9 +22,19 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $temp = $stmt->fetch();
         $sid = $temp['id_student'];
 
-        $query = "UPDATE student__score SET score = ? WHERE id_score = ? and id_student = ?";
+        $query = "SELECT * from student__score WHERE id_score = ? and id_student = ?";
         $stmt = $pdo->prepare($query);
-        $stmt->execute([$score, $id, $sid]);
+        $stmt->execute([$id, $sid]);
+        if ($stmt->rowCount() >= 1) {
+            $query = "UPDATE student__score SET score = ? WHERE id_score = ? and id_student = ?";
+            $stmt = $pdo->prepare($query);
+            $stmt->execute([$score, $id, $sid]);
+        }
+        else {
+            $query = "INSERT INTO student__score (score, id_score, id_student) VALUES (?,?,?)";
+            $stmt = $pdo->prepare($query);
+            $stmt->execute([$score, $id, $sid]);
+        }
     }
 }
 ?>

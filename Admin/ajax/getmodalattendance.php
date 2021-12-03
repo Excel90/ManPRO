@@ -14,7 +14,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $stmt2->execute([$attendance['id_class']]);
     $student=[];
         echo '<div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Edit data attendance</h5>
+                <h5 class="modal-title me-5" id="staticBackdropLabel">Edit data attendance</h5>
+                <button type="button" class="btn btn-primary ez">Hadir Semua</button>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -47,27 +48,30 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                             $status = $stmt4->fetch();
                             echo '<div class="col-sm-6 col-12">
                                     <div class="mb-3">
-                                        <label for="name" class="form-label name">'.$name['first_name'].' '.$name['last_name'].'</label>
+                                    <label for="name" id ="'.$student['id_student'].'" class="form-label name">'.$name['first_name'].' '.$name['last_name'].'</label>
                                     </div>
                                 </div>
                             <div class="col-sm-6 col-12">
-                                <div class="mb-3">
-                            <select id="'.$student['id_student'].'" name="s">';
-                            if($status['status'] == 1){
-                                echo '<option value = "1" selected>Hadir</option>
-                                <option value = "2">Tidak Hadir</option>';
-                            }
-                            else if($status['status'] == 2){
-                                echo '<option value = "1">Hadir</option>
-                                <option value = "2" selected>Tidak Hadir</option>';
-                            }
-                            else{
-                                echo '<option selected disabled hidden></option>
-                                <option value = "1">Hadir</option>
-                                <option value = "2">Tidak Hadir</option>';
-                            }
-                            echo '</select>
-                                </div>
+                                <div class="mb-3">';
+                                    if($status['status'] == 1){
+                                        echo '<input class = "att" type="radio" id ="'.$student['id_student'].'" name="'.$student['id_student'].'" value="1" checked>
+                                        <label>Hadir</label>
+                                        <input class = "att" type="radio" id ="'.$student['id_student'].'" name="'.$student['id_student'].'" value="2">
+                                        <label>Tidak Hadir</label>';
+                                    }
+                                    else if($status['status'] == 2){
+                                        echo '<input class = "att" type="radio" id ="'.$student['id_student'].'" name="'.$student['id_student'].'" value="1">
+                                        <label>Hadir</label>
+                                        <input class = "att" type="radio" id ="'.$student['id_student'].'" name="'.$student['id_student'].'" value="2" checked>
+                                        <label>Tidak Hadir</label>';
+                                    }
+                                    else{
+                                        echo '<input class = "att" type="radio" id ="'.$student['id_student'].'" name="'.$student['id_student'].'" value="1">
+                                        <label>Hadir</label>
+                                        <input class = "att" type="radio" id ="'.$student['id_student'].'" name="'.$student['id_student'].'" value="2">
+                                        <label>Tidak Hadir</label>';
+                                    }
+                            echo '</div>
                             </div>';
                         }
                 echo '</div>
