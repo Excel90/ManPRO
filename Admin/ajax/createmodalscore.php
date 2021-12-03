@@ -4,7 +4,7 @@ session_start();
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $id=$_POST['id'];
-    $query2 = "SELECT * FROM upload where id_class = ? and status_verify = 1 and status_progress = 1";
+    $query2 = "SELECT * FROM upload where id_class = ? and status_verify = 1 and status_progress = 3";
     $stmt2 = $pdo->prepare($query2);
     $stmt2->execute([$id]);
     $student=[];
